@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Candidate;
-use Storage;
+use App\CandidatesDetail;
+use App\Rules\FileValidation;
+use Validator;
 class CandidatesController extends Controller
 {
     /**
@@ -19,45 +21,44 @@ class CandidatesController extends Controller
         return view('admin.candidates.index',compact('candidates'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin.candidates.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'has_images.*' => 'mimes:pdf,dot,doc,docx'
+        ]);
+        
         $files = $request->file('has_images');
-
-        if(!empty($files)):
+        $candidate = new Candidate;
+        if(empty($files)):
+           Candidate::create($request->all());
+        else:
             foreach($files as $file):
 
-            $filenameWithExt = $file->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $file->getClientOriginalExtension();
-            $fileNametoStore = $filename.'_'.time().'.'.$extension;
-            $path = $file->storeAs('public/uploads', $fileNametoStore);
+                $filenameWithExt = $file->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $fileNametoStore = $filename.'_'.time().'.'.$extension;
+                $path = $file->storeAs('public/uploads', $fileNametoStore);
 
-            $cvs[] = [
-                'CV' => $fileNametoStore
-            ];
+                $cvs[] = [
+                    'CV' => $fileNametoStore
+                ];
             endforeach;
-        endif;
             $data = request()->all();
-            $data['has_images'] =  json_encode($cvs);
+            $data['has_images'] =  json_encode($cvs); // if not empty
             Candidate::create($data);
 
-            return redirect()->route('admin.candidates.index');
+        endif;
+        
+            foreach ($request->input('details', []) as $data) {
+            $candidate->candidate_details()->create($data);
+            }
+        return redirect()->route('admin.candidates.index');
     }
 
     public function show($id)
@@ -73,7 +74,7 @@ class CandidatesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return 'test';
     }
 
     /**

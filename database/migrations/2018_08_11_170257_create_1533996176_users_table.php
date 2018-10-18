@@ -20,6 +20,9 @@ class Create1533996176UsersTable extends Migration
                 $table->string('last_name');
                 $table->string('email')->nullable();
                 $table->string('contact_number')->nullable();
+                $table->string('position')->nullable();
+                $table->date('join_date')->nullable();
+                $table->binary('has_images')->nullable();
                 $table->string('password');
                 $table->string('remember_token')->nullable();
                 

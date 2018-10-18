@@ -65,7 +65,7 @@
             @can('user_management_access')
             <li class="treeview">
                 <a href="#recruitment">
-                    <i class="fa fa-users"></i>
+                    <i class="fa fa-user-circle"></i>
                     <span>Recruitment</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -75,7 +75,7 @@
                     @can('user_access')
                     <li>
                         <a href="{{ route('admin.candidates.index') }}">
-                            <i class="fa fa-user"></i>
+                            <i class="fa fa-user-circle-o"></i>
                             <span>@lang('quickadmin.candidates.title')</span>
                         </a>
                     </li>
@@ -85,20 +85,36 @@
             @endcan
             {{-- END OF RECRUITMENT TAB --}}
 
-            <li class="{{ $request->segment(1) == 'change_password' ? 'active' : '' }}">
-                <a href="{{ route('auth.change_password') }}">
-                    <i class="fa fa-key"></i>
-                    <span class="title">@lang('quickadmin.qa_change_password')</span>
+            {{-- ATTENDANCE --}}
+            @can('user_management_access')
+            <li class="treeview">
+                <a href="#attendance">
+                    <i class="fa fa-clock-o"></i>
+                    <span>Attendance</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
                 </a>
-            </li>
+                <ul class="treeview-menu" id='attendance'>
+                    @can('user_access')
+                    <li>
+                        <a href="{{ route('admin.attendances.index') }}">
+                            <i class="fa fa-address-card"></i>
+                            <span>@lang('quickadmin.attendances.title')</span>
+                        </a>
+                    </li>
 
-            <li>
-                <a href="#logout" onclick="$('#logout').submit();">
-                    <i class="fa fa-arrow-left"></i>
-                    <span class="title">@lang('quickadmin.qa_logout')</span>
-                </a>
+                    <li>
+                        <a href="{{ route('admin.leave_managements.index') }}">
+                            <i class="fa fa-book"></i>
+                            <span>@lang('quickadmin.leave_managements.title')</span>
+                        </a>
+                    </li>
+                    @endcan
+                </ul>
+            </li>
+            @endcan
             </li>
         </ul>
     </section>
 </aside>
-

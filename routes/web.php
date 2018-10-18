@@ -28,6 +28,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
                     'as' =>'candidates.upload'
                     ]);
     Route::resource('candidates', 'Admin\CandidatesController');
+    Route::resource('attendances', 'Admin\AttendanceController');
+    Route::resource('leave_managements', 'Admin\LeaveManagementController');
     Route::post('users_mass_destroy', ['uses' => 'Admin\UsersController@massDestroy', 'as' => 'users.mass_destroy']);
     Route::resource('user_actions', 'Admin\UserActionsController');
  

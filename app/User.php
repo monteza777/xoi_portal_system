@@ -6,20 +6,11 @@ use Illuminate\Notifications\Notifiable;
 use App\Notifications\ResetPassword;
 use Hash;
 
-/**
- * Class User
- *
- * @package App
- * @property string $name
- * @property string $email
- * @property string $password
- * @property string $role
- * @property string $remember_token
-*/
+
 class User extends Authenticatable
 {
     use Notifiable;
-    protected $fillable = ['first_name','last_name','email', 'password', 'remember_token', 'role_id'];
+    protected $fillable = ['first_name','email','last_name','contact_number','position','join_date','has_images','email', 'password', 'remember_token', 'role_id'];
     protected $hidden = ['password', 'remember_token'];
     
     
@@ -50,16 +41,19 @@ class User extends Authenticatable
         $this->attributes['role_id'] = $input ? $input : null;
     }
     
-    public function role()
-    {
+    public function role(){
         return $this->belongsTo(Role::class, 'role_id');
     }
-    
-    
-    
 
-    public function sendPasswordResetNotification($token)
-    {
+    public function leave_managements(){
+        return $this->hasMany(LeaveManagement::class);
+    }
+
+    public function sendPasswordResetNotification($token){
        $this->notify(new ResetPassword($token));
+    }
+
+    public function getFullNameAttribute(){
+    return $this->first_name . ' ' . $this->last_name;
     }
 }

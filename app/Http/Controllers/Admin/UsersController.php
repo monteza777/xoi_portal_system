@@ -55,12 +55,34 @@ class UsersController extends Controller
         if (! Gate::allows('user_create')) {
             return abort(401);
         }
-        $user = User::create($request->all());
+        $this->validate($request, [
+        'has_images' => 'required|mimes:jpeg,png,jpg,gif,svg',
+        ]);
 
 
+     /*   if(!empty($files)):
+        $filenameWithExt = $file->getClientOriginalName();
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        $extension = $file->getClientOriginalExtension();
+        $fileNametoStore = $filename.'_'.time().'.'.$extension;
+        $path = $file->storeAs('public/uploads', $fileNametoStore);
+        endif;
 
+*/
+
+
+        
+    if ($request->hasFile('has_images')) {
+        $image = $request->file('has_images');
+        $name = time().'.'.$image->getClientOriginalExtension();
+        $destinationPath = public_path('/images');
+        $image->move($destinationPath, $name);
+    }
+        // return $name;
+        $data = request()->all();
+        $data['has_images'] =  json_encode($name);
+        User::create($data);
         return redirect()->route('admin.users.index');
-
     }
 
 
@@ -69,7 +91,7 @@ class UsersController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+     
     public function edit($id)
     {
         if (! Gate::allows('user_edit')) {

@@ -19,18 +19,17 @@ class CreateCandidatesTable extends Migration
             $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('email_address')->nullable();
-            $table->string('contact_number')->nullable();
             $table->string('home_address')->nullable();
-            $table->string('birthday')->nullable();
             $table->integer('age');
-            $table->string('skill_set')->nullable();
-            $table->string('qualification')->nullable();
-            $table->integer('work_experience_years')->nullable();
-            $table->string('education_summary')->nullable();
-            $table->string('location')->nullable();
-            $table->string('state')->nullable();
-            $table->string('city')->nullable();
+            $table->string('contact_number')->nullable();
             $table->string('postal_code')->nullable();
+            $table->string('qualification')->nullable();
+            $table->string('education_summary')->nullable();
+            $table->string('birthday')->nullable();
+            $table->string('source')->nullable();
+            $table->integer('work_exp')->nullable();
+            $table->string('skill_set')->nullable();
+            $table->binary('has_images')->nullable();
             $table->timestamps();
         });
     }

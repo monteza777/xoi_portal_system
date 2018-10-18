@@ -19,7 +19,7 @@
              <div class="row">
                 <div class=" form-group">
                     {!! Form::label('first_name', trans('quickadmin.candidates.fields.fname').'*', ['class' => 'control-label']) !!}
-                    {!! Form::text('first_name', old('first_name'), ['class' => 'form-control', 'placeholder' => 'First Name', 'required' => '']) !!}
+                    {!! Form::text('first_name', old('first_name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('first_name'))
                         <p class="help-block">
@@ -31,7 +31,7 @@
             <div class="row">
                 <div class=" form-group">
                     {!! Form::label('middle_name', trans('quickadmin.candidates.fields.mname'), ['class' => 'control-label']) !!}
-                    {!! Form::text('middle_name', old('middle_name'), ['class' => 'form-control', 'placeholder' => 'Middle Name']) !!}
+                    {!! Form::text('middle_name', old('middle_name'), ['class' => 'form-control', 'placeholder' => '']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('middle_name'))
                         <p class="help-block">
@@ -43,7 +43,7 @@
             <div class="row">
                 <div class=" form-group">
                     {!! Form::label('last_name', trans('quickadmin.candidates.fields.lname').'*', ['class' => 'control-label']) !!}
-                    {!! Form::text('last_name', old('last_name'), ['class' => 'form-control', 'placeholder' => 'Last Name', 'required' => '']) !!}
+                    {!! Form::text('last_name', old('last_name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('last_name'))
                         <p class="help-block">
@@ -55,7 +55,7 @@
             <div class="row">
                 <div class=" form-group">
                     {!! Form::label('email_address', trans('quickadmin.candidates.fields.email_address').'*', ['class' => 'control-label']) !!}
-                    {!! Form::email('email_address', old('email_address'), ['class' => 'form-control', 'placeholder' => 'Email Address', 'required' => '']) !!}
+                    {!! Form::email('email_address', old('email_address'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('email_address'))
                         <p class="help-block">
@@ -148,10 +148,9 @@
                 <div class=" form-group">
                 <div class="input-group input-group-unstyled">
                 <label for="accountSpan">Birthday</label>
-                    <div class="input-group input-group-unstyled" >
-
-                    {!! Form::text('birthday', old('birthday'), ['class' => 'form-control', 'placeholder' => 'Birthday', 'required' => '','id'=>'datepicker','style'=>'width: 300px;']) !!}
-
+                    <div class="input-group input-group-unstyled" id>
+                    <input type='text' class="form-control" 
+                    name="birthday" id='datepicker' style='width: 300px;' >
                     <span class="input-group-addon">
                     <i class="glyphicon glyphicon-calendar"></i>
                     </span>
@@ -208,68 +207,18 @@
         </div>
         {{-- End of 1st row --}}
     </div>
-    <div class="panel panel-default">
-    <div class="panel-heading">
-            Work Experience
-        </div>
-        <div class="panel-body">
-            <table class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th>@lang('quickadmin.candidates.details.company_name')</th>
-                    <th>@lang('quickadmin.candidates.details.designation')</th>
-                    <th>@lang('quickadmin.candidates.details.from')</th>
-                    <th>@lang('quickadmin.candidates.details.to')</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody id="details">
-                    @foreach(old('details', []) as $index => $data)
-                        @include('admin.candidates.work_exp_row', [
-                            'index' => $index
-                        ])
-                    @endforeach
-                </tbody>
-            </table>
-            <a href="#" class="btn btn-success pull-right add-new">@lang('quickadmin.qa_add_new')</a>
-        </div>
-    </div>
+
     {!! Form::submit(trans('quickadmin.qa_save'), ['class' => 'btn btn-danger']) !!}
     <a href="{{ route('admin.candidates.index') }}" class="btn btn-default">@lang('quickadmin.qa_back_to_list')</a>
     {!! Form::close() !!}
 @stop
 @section('javascript')
     @parent
-<script type="text/html" id="details-template">
-        @include('admin.candidates.work_exp_row',
-                [
-                    'index' => '_INDEX_',
-                ])
-</script > 
-
-<script>
-        $('.add-new').click(function () {
-            var tableBody = $(this).parent().find('tbody');
-            var template = $('#' + tableBody.attr('id') + '-template').html();
-            var lastIndex = parseInt(tableBody.find('tr').last().data('index'));
-            if (isNaN(lastIndex)) {
-                lastIndex = 0;
-            }
-            tableBody.append(template.replace(/_INDEX_/g, lastIndex + 1));
-            return false;
-        });
-        $(document).on('click', '.remove', function () {
-            var row = $(this).parentsUntil('tr').parent();
-            row.remove();
-            return false;
-        });
-</script>
-
+    
 <script type="text/javascript">
 $(document).ready(function(){
  $('#datepicker').datepicker(); 
 });
-
 $(window).load(function () {
     var intervalFunc = function () {
         $('#file-name').html($('#cv').val());
