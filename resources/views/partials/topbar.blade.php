@@ -1,15 +1,10 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="{{ url('/admin/home') }}" class="logo"
-       style="font-size: 16px;">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini">
-           @lang('quickadmin.quickadmin_title')</span>
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg">
-           {{Auth::user()->first_name.' '.Auth::user()->last_name}}
-       </span>
+    
+    <a href="{{ url('/admin/home') }}" class="logo">
+      <span class="logo-lg"><b>XOI</b>-ITS</span>
     </a>
+    
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
         <!-- Sidebar toggle button-->
@@ -30,12 +25,15 @@
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
+
               <li class="user-header">
 
                 <p>
                   {{Auth::user()->first_name.' '.Auth::user()->last_name}}
-                  <small>{{Auth::user()->position}}</small>
                 </p>
+                <img src="{{ asset('storage/uploads/'.Auth::user()->has_images) }}" height="150px" width="150px" 
+                     class="img-responsive img-circle img-thumbnail" /><br>
+                <small>{{Auth::user()->position}}</small>
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">

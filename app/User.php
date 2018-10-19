@@ -48,6 +48,9 @@ class User extends Authenticatable
     public function leave_managements(){
         return $this->hasMany(LeaveManagement::class);
     }
+    public function employee_contracts(){
+        return $this->hasMany(EmployeeContract::class);
+    }
 
     public function sendPasswordResetNotification($token){
        $this->notify(new ResetPassword($token));

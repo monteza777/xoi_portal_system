@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Gate;
-use App\LeaveManagement;
-use Validator;
-use App\Rules\UniqueLeave;
+use App\EmployeeContract;
+use Carbon\Carbon;
 
-class LeaveManagementController extends Controller
+class EmployeeContractController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +16,8 @@ class LeaveManagementController extends Controller
      */
     public function index()
     {
-        $leave_managements = LeaveManagement::all();
-        return view('admin.leave_managements.index',compact('leave_managements'));
+        $employee_contracts = EmployeeContract::all();
+        return view('admin.employee_contracts.index',compact('employee_contracts'));
     }
 
     /**
@@ -32,7 +30,7 @@ class LeaveManagementController extends Controller
         $users = \App\User::get()->pluck('full_name', 'id')
         ->prepend(trans('quickadmin.qa_please_select'), '');
 
-        return view('admin.leave_managements.create',compact('users'));
+        return view('admin.employee_contracts.create',compact('users'));
     }
 
     /**
@@ -44,13 +42,13 @@ class LeaveManagementController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-        'user_id' => "UniqueLeave:{$request->start_date}",
-        'start_date' => 'required',
-        'leave_type' => 'required'
+        'user_id' => 'required',
+        'contract_date' => 'required',
+        'contract_days' => 'required'
         ]);
 
-        LeaveManagement::create($request->all());
-        return redirect()->route('admin.leave_managements.index');
+        EmployeeContract::create($request->all());
+        return redirect()->route('admin.employee_contracts.index');
     }
 
     /**

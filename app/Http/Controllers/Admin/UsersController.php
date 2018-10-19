@@ -59,32 +59,26 @@ class UsersController extends Controller
         'has_images' => 'required|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
+        $file = $request->file('has_images');
 
-     /*   if(!empty($files)):
+        if(empty($file)):
+            User::create($request->all());
+        else:
         $filenameWithExt = $file->getClientOriginalName();
         $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
         $extension = $file->getClientOriginalExtension();
         $fileNametoStore = $filename.'_'.time().'.'.$extension;
         $path = $file->storeAs('public/uploads', $fileNametoStore);
-        endif;
 
-*/
+        $cvs = $fileNametoStore;
 
-
-        
-    if ($request->hasFile('has_images')) {
-        $image = $request->file('has_images');
-        $name = time().'.'.$image->getClientOriginalExtension();
-        $destinationPath = public_path('/images');
-        $image->move($destinationPath, $name);
-    }
-        // return $name;
         $data = request()->all();
-        $data['has_images'] =  json_encode($name);
+
+        $data['has_images'] =  $cvs; // if not empty
         User::create($data);
+        endif;
         return redirect()->route('admin.users.index');
     }
-
 
     /**
      * Show the form for editing User.

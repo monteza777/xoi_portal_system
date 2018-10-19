@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::resource('candidates', 'Admin\CandidatesController');
     Route::resource('attendances', 'Admin\AttendanceController');
     Route::resource('leave_managements', 'Admin\LeaveManagementController');
+    Route::resource('employee_contracts', 'Admin\EmployeeContractController');
     Route::post('users_mass_destroy', ['uses' => 'Admin\UsersController@massDestroy', 'as' => 'users.mass_destroy']);
     Route::resource('user_actions', 'Admin\UserActionsController');
  

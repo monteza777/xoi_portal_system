@@ -1,7 +1,7 @@
 <?php
 
 return [
-	
+	'action' => 'Action',
 	'user-management' => [
 		'title' => 'User management',
 		'fields' => [
@@ -92,7 +92,7 @@ return [
 		],
 	],
 	'leave_managements' => [
-		'title' => 'Apply Leave',
+		'title' => 'Assign Leave',
 		'created_at' => 'Created At',
 		'add_leave' => 'Add Employee Leave',
 		'fields' => [
@@ -104,6 +104,20 @@ return [
 			'end_time' => 'End Time',
 			'reason' => 'Reason',
 			'leave_type' => 'Leave Type',
+		],
+	],
+	'employee_contracts' => [
+		'title' => 'Employee Contracts',
+		'created_at' => 'Created At',
+		'add_employee_contract' => 'Add Employee Contract',
+		'fields' => [
+			'user_id' => 'Fullname',
+			'contract_date' => 'Contract Date',
+			'contract_days' => 'Contract Days',
+			'leaves_allocation' => 'Leaves Allocation',
+			'total_leaves_on_contract' => 'Total Leaves Allocation Based on Contract',
+			'leaves_taken' => 'Leaves Taken',
+			'leaves_balance' => 'Leaves Balance',
 		],
 	],
 	'qa_create' => 'Create',

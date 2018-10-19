@@ -6,7 +6,10 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        @lang('quickadmin.qa_create')
+        <button id="browse-click" type="submit" class="btn btn-success btn-sm" >
+                    Upload Image
+                    </button>
+                    <input type="file" name="has_images" class="invisible" id="image">
     </div>
     
 <div class="panel-body">
@@ -102,7 +105,7 @@
                 <div class="row">
                     <div class=" form-group">
                         <div class="input-group input-group-unstyled">
-                        <label for="accountSpan">Date To</label>
+                        {!! Form::label('position', trans('quickadmin.users.fields.join_date'), ['class' => 'control-label']) !!}
                             <div class="input-group input-group-unstyled">
                             {!! Form::text('join_date', old('join_date'), ['class' => 'form-control', 'placeholder' => 'Date To','id'=>'datepicker','style'=>'width: 415px;']) !!}
                             <span class="input-group-addon">
@@ -119,12 +122,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel-heading">
-                    <button id="browse-click" type="submit" class="btn btn-primary btn-sm" >
-                    Upload Image
-                    </button>
-                    <input type="file" name="has_images" class="" id="image">
-                </div>
+                
             </div>
         </div>
     </div>

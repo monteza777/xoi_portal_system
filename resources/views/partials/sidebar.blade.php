@@ -89,7 +89,7 @@
             @can('user_management_access')
             <li class="treeview">
                 <a href="#attendance">
-                    <i class="fa fa-clock-o"></i>
+                    <i class="fa fa-address-card"></i>
                     <span>Attendance</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -99,7 +99,7 @@
                     @can('user_access')
                     <li>
                         <a href="{{ route('admin.attendances.index') }}">
-                            <i class="fa fa-address-card"></i>
+                            <i class="fa fa-clock-o"></i>
                             <span>@lang('quickadmin.attendances.title')</span>
                         </a>
                     </li>
@@ -108,6 +108,12 @@
                         <a href="{{ route('admin.leave_managements.index') }}">
                             <i class="fa fa-book"></i>
                             <span>@lang('quickadmin.leave_managements.title')</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.employee_contracts.index') }}">
+                            <i class="fa fa-book"></i>
+                            <span>@lang('quickadmin.employee_contracts.title')</span>
                         </a>
                     </li>
                     @endcan
